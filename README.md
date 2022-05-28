@@ -142,9 +142,9 @@
 
 #### 1) 잠재의미분석 (LSA, Latent Semantic Analysis)
 
-- DTM(Document Term Matrix)를 만든 후 Truncated SVD를 통해 문서에 숨어있는 의미를 추출
+- **DTM(Document Term Matrix)를 만든 후 Truncated SVD를 통해 문서에 숨어있는 의미를 추출**
 - 결과 캡쳐
-- 쉽고 빠르게 구현 가능한 장점이 있어 대략적인 인사이트를 얻는데 활용
+- **쉽고 빠르게 구현 가능한 장점이 있어 대략적인 인사이트를 얻는데 활용**
 
 
 
@@ -176,13 +176,15 @@
 
 #### 3) KeyBERT
 
-- 
+- **BERT를 이용해 문서와 단어를 Embedding한 후 유사도를 이용해 키워드 추출하는 방법**
+- First, document embeddings are extracted with BERT to get a document-level representation. Then, word embeddings are extracted for N-gram words/phrases. Finally, we use cosine similarity to find the words/phrases that are the most similar to the document. The most similar words could then be identified as the words that best describe the entire document.
+- BERT를 이용해 문서 레벨 (document-level)에서의 주제 (representation)를 파악하도록 하고, N-gram을 위해 단어를 임베딩 합니다. 이후 코사인 유사도를 계산하여 어떤 N-gram 단어 또는 구가 문서와 가장 유사한지 찾아냅니다. 가장 유사한 단어들은 문서를 가장 잘 설명할 수 있는 키워드로 분류됩니다 (
 
 
 
-#### 4) 복합토픽모델()
+#### 4) 복합토픽모델(CTM, Combined Topic Models)
 
-- 
+- 빈도수 기반 문서 벡터화 방식인 Bag of Words와 사전 훈련된 언어 모델의 문서 임베딩 방식인 SBERT를 결합하여 사용하는 복합 토픽 모델
 
 
 
@@ -207,7 +209,6 @@
 #### 6) Ensemble LDA (with Tomotopy)
 
 - 실행시간에서 Gensim보다 
-
 
 
 

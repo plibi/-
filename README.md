@@ -3,11 +3,16 @@
 ### **주제**
 
 - 영화 **장르별 핵심 키워드** 추출
-  - 장르별 영화 요소(키워드)의 **중요도 파악** => LDA 스코어로?
-  - 한 장르에서 어떤 키워드의 **중요도 파악** => 어떤키워드 스코어 / 모든 키워드스코어 합
-  - 장르간 추출된 키워드가 비슷하다면 해당 키워드의 유사의미단어(CTM)들의 차이 제시
-
+  - 키워드별 **중요도 파악** => LDA 스코어
+  - 한 장르에서 어떤 키워드의 **중요도(비중) 파악** => 'A'의 키워드 스코어 / 모든 키워드스코어 합
+  - 키워드의 **유사의미단어**(CTM)들도 제공 => 같은 키워드라도 장르간 차이 제시
+  - 
 - ...
+
+### 결과
+
+- 스토리, 연기와 같이 여러 장르에 걸쳐 상위에 등장하는 키워드들은 영화를 평가할때 전반적으로 사용되는
+- 같은
 
 
 
@@ -150,10 +155,9 @@
 
 #### 2) 잠재 디리클레 할당 (LDA, Latent Dirichlet Allocation)
 
-- 주어진 문서들에 대하여 각 문서에 어떤 주제들이 존재하는지에 대한 확률모형
-- 문서가 생성되는 과정을 확률적으로 모델링
-- (미리 알고 있는 주제별 단어수 분포를 바탕으로, 주어진 문서에서 발견된 단어수 분포를 분석함으로써 해당 문서가 어떤 주제들을 함께 다루고 있을지를 예측)
-  특정 토픽에 특정 단어가 나타날 확률
+- 주어진 문서들에 대하여 각 문서에 어떤 토픽들이 존재하는지에 대한 확률모형
+- 문서가 생성되는 과정을 확률적으로 모델링한 후 이를 추론하면서 토픽을 추정
+- 
 - ![image-20220525104003691](README.assets/image-20220525104003691.png)
 - 다시 말해 LDA는 토픽의 단어분포와 문서의 토픽분포의 결합으로 문서 내 단어들이 생성된다고 가정합니다. LDA의 inference는 실제 관찰가능한 문서 내 단어를 가지고 우리가 알고 싶은 토픽의 단어분포, 문서의 토픽분포를 추정하는 과정입니다.
 
@@ -177,6 +181,7 @@
 #### 3) KeyBERT
 
 - **BERT를 이용해 문서와 단어를 Embedding한 후 유사도를 이용해 키워드 추출하는 방법**
+- 문서의 의미적 측면을 고려해 키워드 추출 가능
 - First, document embeddings are extracted with BERT to get a document-level representation. Then, word embeddings are extracted for N-gram words/phrases. Finally, we use cosine similarity to find the words/phrases that are the most similar to the document. The most similar words could then be identified as the words that best describe the entire document.
 - BERT를 이용해 문서 레벨 (document-level)에서의 주제 (representation)를 파악하도록 하고, N-gram을 위해 단어를 임베딩 합니다. 이후 코사인 유사도를 계산하여 어떤 N-gram 단어 또는 구가 문서와 가장 유사한지 찾아냅니다. 가장 유사한 단어들은 문서를 가장 잘 설명할 수 있는 키워드로 분류됩니다 (
 
@@ -214,5 +219,5 @@
 
 
 
-
+코드 이해, PPT, 전체데이터실행, 보고서, 웹, 
 

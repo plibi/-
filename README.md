@@ -46,15 +46,14 @@
 
 
 
-## **0. Contents**
+## **Contents**
 
 1. 프로젝트 및 수행과정 소개
-
 2. 수행과정
-   1. 데이터 소개 및 수집
-   2. 데이터 전처리
-   3. 토픽 모델링
-   4. 결과 분석
+   1) 데이터 수집 및 소개
+   2) 데이터 탐색 및 전처리
+   3) 토픽 모델링
+   4) 키워드 결과
 3. 셀프 피드백(시행착오들, 개선점들)
 4. Reference (1page)
 5. QnA
@@ -63,46 +62,51 @@
 
 ## 1. **프로젝트 및 수행과정 소개**
 
-1. ### **팀원소개 및 역할**
+### **1) 팀원소개 및 역할**	
 
-   - 김준호(팀장)
+- 김준호(팀장)
 
-     - 데이터 크롤링 코드 구현, 데이터 수집, (데이터 전처리), (자료조사), (결과분석)
+  - 데이터 크롤링 코드 구현, 데이터 수집, (데이터 전처리), (자료조사), (결과분석)
 
-     - 모델 (LDA, LSA, KeyBERT, CTM) 구현
+  - 모델 (LDA, LSA, KeyBERT, CTM) 구현
 
-     - 키워드 추출 코드 구현
+  - 키워드 결과 코드 구현
 
-     - 강석창
+  - 강석창
 
-       - 데이터 수집
-       - 모델 (TextRank)
+    - 데이터 수집
+    - 모델 (TextRank)
 
-     - 박재현
+  - 박재현
 
-       - 데이터 수집, 데이터 전처리 코드 구현
-       - 모델 (Ensemble LDA)
-       - PPT 발표
+    - 데이터 수집, 데이터 전처리 코드 구현
+    - 모델 (Ensemble LDA)
+    - PPT 발표
 
-     - 김예슬
+  - 김예슬
 
-       - 데이터 수집
-       - PPT 제작
+    - 데이터 수집
+    - PPT 제작
 
-       
+    
 
-2. ### **프로젝트 소개**
+### 2) **프로젝트 소개**
 
-  - 다양한 분야에서 소비자 리뷰 분석을 통해 마케팅, 제품 개선 등에 이용
+  - 프로젝트 주제
+  - 
+  - 프로젝트 주제 선정 배경
+    - 다양한 분야에서 소비자 리뷰 분석을 통해 마케팅, 제품 개선 등에 이용
     - 관련 연구 사례 캡쳐
+
   - (소비자 데이터의 중요성 상기 및 영화 분야에 적용)
   - 영화 리뷰데이터로 장르별 핵심 키워드 추출을 통해 B2B 측면에서 ...
 
 
 
-3. ### **수행과정**
+### **3) 수행과정**
 
-  - 수행과정 도식화
+  - 수행과정 시각화
+  - ![image-20220531153129488](README.assets/image-20220531153129488.png)
 
 
 
@@ -111,34 +115,33 @@
 ### 1) **데이터 수집**
 
 - 네이버 영화 리뷰
-  - 캡쳐 (네이버 영화 -> 영화랭킹 -> 평점순 페이지)
+  - 캡쳐 (네이버 영화 -> 영화랭킹 -> 평점순 페이지 -> 장르선택)
+  - 데이터 상세 (.sample(n)로 n개만 뽑아서 캡쳐)
+  - (각 영화당 1000개의 리뷰 크롤링)
   - (다양한 영화 리뷰 사이트 But 리뷰 수와 크롤링 편의성 등 고려해 네이버 영화로 선정)
 
 
 
-### 2) 데이터 전처리
+### 2) 데이터 탐색 및 전처리
 
 1. 데이터 클리닝
 
-   - 결측치 캡쳐
+   - 결측치 캡쳐 -> 삭제
 
-   - 중복리뷰 캡쳐
-
+   - 중복리뷰 캡쳐 -> 삭제
 2. 데이터 전처리
 
-   - Okt, Mecab 사용해 명사만 추출
-   - Okt 실행했던 과정
-   - Mecab 사용해 일반명사, 고유명사만 추출
-   - 명사 추출 후 불용어 제거, 1글자 단어 제거
+   - 키워드가 될 수 있는 명사만 추출하는 작업수행
+   - 형태소 분석기 Mecab 사용(매우빠름, 세부적인 품사태깅)
+   - Mecab 사용해 일반명사(NNG), 고유명사(NNP)만 추출
+   - 불용어 제거, 길이 1글자 이하 리뷰 제거
+   - 긍부정 레이블링(123, 8910)
 
 
 
-### 3) 토픽 모델링
+### 3) 모델링
 
-
-
-
-#### 1. Topic models
+### 1. Topic models
 
 - 문서 집합에서 "토픽"이라는 추상적인 주제를 찾기 위한 통계적 모델 중 하나로, 텍스트 본문의 숨겨진 의미 구조를 발견하기 위해 사용되는 텍스트 마이닝 기법입니다.
 - A topic model is a type of statistical model for discovering the abstract "topics" that occur in a collection of documents. Topic modeling is a frequently used text-mining tool for the discovery of hidden semantic structures in a text body. (paperswithcode)
@@ -180,8 +183,8 @@
 
 #### 3) KeyBERT
 
-- **BERT를 이용해 문서와 단어를 Embedding한 후 유사도를 이용해 키워드 추출하는 방법**
-- 문서의 의미적 측면을 고려해 키워드 추출 가능
+- **BERT를 이용해 문서와 단어를 Embedding한 후 유사도를 계산해 키워드 추출하는 방법**
+- (문서의 의미적 내용을 파악해 키워드 추출 가능)
 - First, document embeddings are extracted with BERT to get a document-level representation. Then, word embeddings are extracted for N-gram words/phrases. Finally, we use cosine similarity to find the words/phrases that are the most similar to the document. The most similar words could then be identified as the words that best describe the entire document.
 - BERT를 이용해 문서 레벨 (document-level)에서의 주제 (representation)를 파악하도록 하고, N-gram을 위해 단어를 임베딩 합니다. 이후 코사인 유사도를 계산하여 어떤 N-gram 단어 또는 구가 문서와 가장 유사한지 찾아냅니다. 가장 유사한 단어들은 문서를 가장 잘 설명할 수 있는 키워드로 분류됩니다 (
 
@@ -196,15 +199,11 @@
 #### 5) Ensemble LDA
 
 - To Extracting Reliable Topics,
-
 - LDA의 중요한 문제는 재현성(reproducibility), 처음에 랜덤으로 초기화 해주기 때문에 다시 실험했을때도 똑같은 결과가 나오
-- 그래서 시드를 고정해 놓고 
-
-- Gensim로 구현
-  - Gensim 라이브러리에서 지원하는 Ensemble LDA
+- 그래서 시드를 고정해 놓고, 여러개의 모델을 돌린 결과를 앙상블해 사용 
 
 
-- Tomotopy로 직접 구현
+- Tomotopy로 구현
   - 기존 Gemsim이나 Sklearn같은 경우는 한개의 LDA 모델을 돌리는데 5분정도로 많은 시간소요
   - 
 
@@ -214,10 +213,28 @@
 #### 6) Ensemble LDA (with Tomotopy)
 
 - 실행시간에서 Gensim보다 
+- ...
 
 
+
+### 4) 결과분석
+
+- ...
+
+
+
+## 3. 셀프피드백
+
+### 1) 세부과정(시행착오)
 
 
 
 코드 이해, PPT, 전체데이터실행, 보고서, 웹, 
 
+키워드 몇개 뽑을 것인지()
+
+- 3퍼센트
+  - 드라마 - 7개
+  - 판타지 - 6개
+  - 전쟁 - 5개
+  - 액션 - 7개

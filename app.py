@@ -1,6 +1,5 @@
 import streamlit as st
 import pickle
-import matplotlib.pyplot as plt
 from pyecharts import options as opts
 from pyecharts.charts import Pie
 from streamlit_echarts import st_pyecharts

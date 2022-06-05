@@ -1,3 +1,4 @@
+!pip install streamlit-echarts
 import streamlit as st
 import pickle
 from pyecharts import options as opts

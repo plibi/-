@@ -15,7 +15,7 @@ def LDA1_pre(LDA1):
         LDA1_preprocessing.append(tmp_list)
     return LDA1_preprocessing
 
-# 실행속도 0.0136
+# 0.0136
 def normal_score(data):
     score = []
     tmp = pd.DataFrame(data[0], columns = ['word', 'score'])
@@ -26,8 +26,8 @@ def normal_score(data):
         score.append((tmp['word'][j], tmp['score_n'][j]))  
     return score
 
-# 실행속도 0.001107
-def getscore(model_result):
+# 0.001107
+def get_score(model_result):
     # Make data as numpy array
     # shape = (10, 10, 2) = (n_topic, n_keyword, (keyword, score))
     array_data = np.array(model_result)
@@ -63,8 +63,8 @@ def make_dict(LDA1, LSA, keybert):
 
 def keyword_extract(LDA1, LSA, keybert, key_n):
     LDA1_tmp = LDA1_pre(LDA1)
-    LDA1_normal = getscore(LDA1_tmp)
-    LSA_normal = getscore(LSA)
+    LDA1_normal = get_score(LDA1_tmp)
+    LSA_normal = get_score(LSA)
     keybert_normal = normal_keybert(keybert.most_common(key_n))
     normal_keyword = make_dict(LDA1_normal, LSA_normal, keybert_normal)          
          
@@ -98,8 +98,6 @@ def similar_word(CTM, keyword, n_word, sim_word):
             if j in k[:sim_word]:
                 word_dic[j] = k[:sim_word] if j not in word_dic else word_dic[j]+k[:sim_word]
                 word_dic[j] = list(set(word_dic[j]))
-
-                # Remove keyword in similar word list
                 if j in word_dic[j]:
                     word_dic[j].remove(j)
     return word_dic
